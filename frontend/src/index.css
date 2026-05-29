@@ -1,0 +1,154 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * { box-sizing: border-box; }
+
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+  ::selection { background: rgba(59, 130, 246, 0.3); color: white; }
+}
+
+@layer components {
+  .card {
+    @apply relative overflow-hidden rounded-2xl border;
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-color: rgba(51, 65, 85, 0.5);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+  .card:hover {
+    border-color: rgba(59, 130, 246, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 24px -8px rgba(59, 130, 246, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+
+  .card-accent { @apply card; }
+  .card-accent::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent, #3b82f6), transparent);
+    opacity: 0.6;
+  }
+
+  .glow-text {
+    text-shadow: 0 0 20px var(--accent, #3b82f6), 0 0 40px var(--accent, #3b82f6);
+  }
+  .glow-box {
+    box-shadow: 0 0 20px -4px var(--accent, #3b82f6), 0 0 60px -12px var(--accent, #3b82f6);
+  }
+
+  .hud-panel {
+    @apply rounded-2xl border;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-color: rgba(51, 65, 85, 0.3);
+  }
+
+  .scanlines::after {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    pointer-events: none;
+    z-index: 9999;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.06) 2px,
+      rgba(0, 0, 0, 0.06) 4px
+    );
+  }
+
+  @keyframes pulse-ring {
+    0%, 100% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.08); opacity: 0.2; }
+  }
+  @keyframes data-flow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  @keyframes flicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.85; }
+  }
+
+  .animate-pulse-ring { animation: pulse-ring 3s ease-in-out infinite; }
+  .animate-data-flow {
+    background-size: 200% 200%;
+    animation: data-flow 4s ease infinite;
+  }
+  .animate-flicker { animation: flicker 4s ease-in-out infinite; }
+
+  .corner-brackets {
+    position: relative;
+  }
+  .corner-brackets::before,
+  .corner-brackets::after {
+    content: '';
+    position: absolute;
+    width: 12px; height: 12px;
+    border-color: var(--accent, #3b82f6);
+    opacity: 0.3;
+  }
+  .corner-brackets::before {
+    top: 8px; left: 8px;
+    border-top: 1px solid; border-left: 1px solid;
+  }
+  .corner-brackets::after {
+    bottom: 8px; right: 8px;
+    border-bottom: 1px solid; border-right: 1px solid;
+  }
+
+  .value-digit {
+    display: inline-block;
+    font-variant-numeric: tabular-nums;
+    transition: color 0.3s;
+  }
+
+  @keyframes fade-slide-up {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .stagger-fade > * {
+    animation: fade-slide-up 0.5s ease-out both;
+  }
+  .stagger-fade > *:nth-child(1) { animation-delay: 0.05s; }
+  .stagger-fade > *:nth-child(2) { animation-delay: 0.10s; }
+  .stagger-fade > *:nth-child(3) { animation-delay: 0.15s; }
+  .stagger-fade > *:nth-child(4) { animation-delay: 0.20s; }
+  .stagger-fade > *:nth-child(5) { animation-delay: 0.25s; }
+  .stagger-fade > *:nth-child(6) { animation-delay: 0.30s; }
+
+  @keyframes pulse-border {
+    0%, 100% { border-color: rgba(59, 130, 246, 0.15); box-shadow: 0 0 0px rgba(59, 130, 246, 0); }
+    50% { border-color: rgba(59, 130, 246, 0.3); box-shadow: 0 0 12px -4px rgba(59, 130, 246, 0.15); }
+  }
+  .card-pulse {
+    animation: pulse-border 3s ease-in-out infinite;
+  }
+
+  @keyframes tab-enter {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .tab-enter {
+    animation: tab-enter 0.35s ease-out;
+  }
+
+  @keyframes tab-exit {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(-8px); }
+  }
+  .tab-exit {
+    animation: tab-exit 0.2s ease-in forwards;
+  }
+}
