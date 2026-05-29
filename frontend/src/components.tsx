@@ -5,7 +5,7 @@ import { Circle, MapContainer, Marker, Polyline, Popup, TileLayer, useMap, useMa
 import L from 'leaflet';
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import type { DestPosition, Metrics, Position } from './types';
-import type { RouteData } from './hooks/useRoute';
+import type { RouteData } from './hooks';
 
 /* Consolidated — all components inlined */
 

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback, lazy, Suspense } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import type { Metrics, Position, DestPosition } from './types';
 import {
   Header, ErrorBanner, EnergeticsPanel, MetricCards, MinkowskiDiagram,
@@ -10,7 +10,7 @@ import {
   MouseGlow, SettingsPanel, loadSettings, WarpJumpAnimation,
   PhysicsReference, CompassIndicator, DataAgeIndicator, FpsMonitor,
   AboutPanel, EnvironmentData, RoadInfo, JourneyTimeline, RecordsTracker,
-  DestinationSearch, DeviceStatus, ParticleBackground,
+  DestinationSearch, DeviceStatus, ParticleBackground, LabsPage,
 } from './components';
 import type { Settings, TimelineEvent } from './components';
 import { useRoute, useKeyboard } from './hooks';
@@ -18,8 +18,6 @@ import { useRoute, useKeyboard } from './hooks';
 const LOG_KEY = 'chronos-logbook';
 const HISTORY_KEY = 'chronos-history';
 
-const MapSection = lazy(() => import('./components').then(m => ({ default: m.MapSection })));
-const LabsPage = lazy(() => import('./components').then(m => ({ default: m.LabsPage })));
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
@@ -978,9 +976,7 @@ function DashboardInner() {
           </div>
         </>
       ) : (
-        <Suspense fallback={<div className="h-96 bg-slate-900 rounded-2xl animate-pulse" />}>
           <LabsPage />
-        </Suspense>
       )}
       </div>
 
